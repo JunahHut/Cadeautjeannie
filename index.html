@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 maand jij &amp; ik 🌸</title>
+<style>
+  :root{
+    --cream:#fff8f4;
+    --blush:#f6d3de;
+    --rose:#e8a3bb;
+    --deep-rose:#c96f92;
+    --plum:#5b3b4c;
+    --plum-soft:#8a6577;
+    --gold:#d8b48a;
+    --white:#ffffff;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  @font-face{
+    font-family:'system-serif';
+    src:local('Georgia');
+  }
+
+  body{
+    background:var(--cream);
+    color:var(--plum);
+    font-family:'Poppins', 'Segoe UI', sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Cormorant Garamond','Playfair Display', Georgia, serif;
+    font-weight:600;
+    color:var(--plum);
+  }
+
+  a{ color:inherit; }
+
+  /* ---------- floating petals ---------- */
+  .petal-field{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:2;
+    overflow:hidden;
+  }
+  .petal{
+    position:absolute;
+    top:-5%;
+    width:14px;
+    height:14px;
+    background:var(--rose);
+    border-radius:0 100% 0 100%;
+    opacity:.55;
+    animation: fall linear infinite;
+  }
+  @keyframes fall{
+    0%{ transform: translateY(0) rotate(0deg); opacity:.6;}
+    100%{ transform: translateY(110vh) rotate(360deg); opacity:.15;}
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    position:relative;
+    padding: 110px 24px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 60px 24px;
+  }
+  .hero .eyebrow{
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    font-size: .68rem;
+    color: var(--deep-rose);
+    margin-bottom: 22px;
+    font-weight:600;
+  }
+  .hero h1{
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    line-height: 1.05;
+    font-style: italic;
+    margin-bottom: 22px;
+  }
+  .hero p.sub{
+    max-width: 480px;
+    color: var(--plum-soft);
+    font-size: 1.05rem;
+    line-height:1.7;
+    margin-bottom: 40px;
+  }
+  .bouquet-wrap{
+    width: min(420px, 80vw);
+    margin-bottom: 10px;
+  }
+  .scroll-hint{
+    margin-top: 50px;
+    font-size: .78rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color: var(--plum-soft);
+    opacity:.7;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(8px); }
+  }
+
+  /* ---------- divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    gap: 18px;
+    margin: 0 auto 50px;
+    max-width: 200px;
+    color: var(--deep-rose);
+  }
+  .divider .line{
+    flex:1;
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+
+  /* ---------- letter section ---------- */
+  .letter{
+    background: var(--white);
+    border-radius: 28px;
+    padding: 60px clamp(28px, 6vw, 80px);
+    box-shadow: 0 30px 60px -30px rgba(201,111,146,.35);
+    position:relative;
+  }
+  .letter::before{
+    content:"❞";
+    position:absolute;
+    top: 18px;
+    left: 34px;
+    font-size: 4rem;
+    color: var(--blush);
+    font-family: Georgia, serif;
+  }
+  .letter h2{
+    text-align:center;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-style: italic;
+    margin-bottom: 34px;
+  }
+  .letter p{
+    font-size: 1.05rem;
+    line-height: 1.95;
+    color: var(--plum);
+    margin-bottom: 20px;
+  }
+  .letter .sign{
+    text-align:right;
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    color: var(--deep-rose);
+  }
+
+  /* ---------- section titles ---------- */
+  .section-title{
+    text-align:center;
+    margin-bottom: 16px;
+  }
+  .section-title h2{
+    font-size: clamp(2rem, 5vw, 2.9rem);
+    font-style: italic;
+  }
+  .section-title p{
+    color: var(--plum-soft);
+    max-width: 480px;
+    margin: 14px auto 0;
+    line-height:1.7;
+  }
+
+  /* ---------- divider orchid accent ---------- */
+  .divider-orchid{
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- bouquet builder ---------- */
+  .builder-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top: 46px;
+  }
+  .builder-display{
+    position:relative;
+    width: min(440px, 92vw);
+  }
+  .builder-display svg{ width:100%; height:auto; display:block; }
+  .builder-empty{
+    position:absolute;
+    top: 40%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    color: var(--plum-soft);
+    font-style: italic;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    max-width: 220px;
+    pointer-events:none;
+    transition: opacity .3s ease;
+  }
+  .builder-empty.hidden{ opacity:0; }
+
+  .picker{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap: 14px;
+    margin-top: 30px;
+    max-width: 560px;
+  }
+  .flower-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background: var(--white);
+    border: 1px solid var(--blush);
+    border-radius: 999px;
+    padding: 10px 18px 10px 10px;
+    cursor:pointer;
+    font-family:'Poppins', sans-serif;
+    font-size: .85rem;
+    color: var(--plum);
+    box-shadow: 0 10px 22px -16px rgba(201,111,146,.5);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .flower-chip svg{ width: 30px; height: 30px; }
+  .flower-chip:hover{
+    transform: translateY(-3px);
+    background: var(--blush);
+    box-shadow: 0 16px 28px -16px rgba(201,111,146,.6);
+  }
+  .flower-chip:active{ transform: translateY(0) scale(.97); }
+
+  .clear-btn{
+    background: transparent;
+    border: 1px solid var(--deep-rose);
+    color: var(--deep-rose);
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: .82rem;
+    letter-spacing:.05em;
+    cursor:pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+  .clear-btn:hover{ background: var(--deep-rose); color: var(--white); }
+
+  .builder-count{
+    margin-top: 18px;
+    font-size: .78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color: var(--plum-soft);
+  }
+
+  /* ---------- live counter ---------- */
+  .counter-card{
+    background: linear-gradient(160deg, var(--white), var(--cream));
+    border-radius: 28px;
+    padding: 50px clamp(20px, 5vw, 60px);
+    box-shadow: 0 30px 60px -30px rgba(201,111,146,.35);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap: 34px;
+    margin-top: 50px;
+  }
+  .counter-unit{
+    text-align:center;
+    min-width: 78px;
+  }
+  .counter-unit .num{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    color: var(--deep-rose);
+    line-height:1;
+    font-variant-numeric: tabular-nums;
+  }
+  .counter-unit .label{
+    margin-top: 8px;
+    font-size: .72rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color: var(--plum-soft);
+  }
+
+  /* ---------- distance ---------- */
+  .distance-wrap{
+    margin-top: 50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .distance-svg{ width: min(500px, 92vw); height:auto; }
+  .distance-caption{
+    margin-top: 22px;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--plum-soft);
+    max-width: 380px;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    text-align:center;
+    padding: 90px 24px 70px;
+  }
+  footer .heart{
+    font-size: 2.4rem;
+    color: var(--deep-rose);
+    margin-bottom: 18px;
+    display:inline-block;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.18); }
+  }
+  footer h2{
+    font-style: italic;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    margin-bottom: 14px;
+  }
+  footer p{
+    color: var(--plum-soft);
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ---------- scratch ticket ---------- */
+  .scratch-wrap{
+    margin-top: 50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .scratch-card{
+    position:relative;
+    width: min(340px, 88vw);
+    aspect-ratio: 4/2.6;
+    border-radius: 22px;
+    overflow:hidden;
+    box-shadow: 0 24px 46px -24px rgba(201,111,146,.5);
+  }
+  .scratch-prize{
+    position:absolute;
+    inset:0;
+    background: linear-gradient(155deg, var(--blush), var(--rose));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 20px;
+  }
+  .scratch-prize .prize-title{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--white);
+    line-height:1.4;
+  }
+  .scratch-canvas{
+    position:absolute;
+    inset:0;
+    cursor: pointer;
+    touch-action: none;
+  }
+  .scratch-hint{
+    margin-top: 16px;
+    font-size: .78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color: var(--plum-soft);
+    text-align:center;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .petal, .scroll-hint, footer .heart{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petal-field" id="petalField"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="eyebrow">Een cadeautje van mij, voor annie.</div>
+  <div class="bouquet-wrap">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- stems -->
+      <path d="M200 300 Q195 220 160 190" stroke="#9fb98a" stroke-width="4" fill="none"/>
+      <path d="M200 300 Q205 210 200 160" stroke="#9fb98a" stroke-width="4" fill="none"/>
+      <path d="M200 300 Q210 220 245 190" stroke="#9fb98a" stroke-width="4" fill="none"/>
+      <path d="M200 300 Q180 230 130 210" stroke="#9fb98a" stroke-width="4" fill="none"/>
+      <path d="M200 300 Q225 235 275 215" stroke="#9fb98a" stroke-width="4" fill="none"/>
+      <!-- leaves -->
+      <ellipse cx="175" cy="245" rx="14" ry="6" fill="#b7cf9f" transform="rotate(-30 175 245)"/>
+      <ellipse cx="225" cy="245" rx="14" ry="6" fill="#b7cf9f" transform="rotate(30 225 245)"/>
+
+      <!-- flower 1 -->
+      <g transform="translate(160,185)">
+        <circle r="20" fill="#f6d3de"/>
+        <circle r="20" cx="17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="-17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="17" cy="8" fill="#eeb3c6"/>
+        <circle r="20" cx="-17" cy="8" fill="#eeb3c6"/>
+        <circle r="9" fill="#d8a3b8"/>
+      </g>
+      <!-- flower 2 (biggest, center) -->
+      <g transform="translate(200,150) scale(1.15)">
+        <circle r="22" fill="#f8dbe4"/>
+        <circle r="22" cx="19" cy="-9" fill="#f2c2d1"/>
+        <circle r="22" cx="-19" cy="-9" fill="#f2c2d1"/>
+        <circle r="22" cx="19" cy="9" fill="#e8a3bb"/>
+        <circle r="22" cx="-19" cy="9" fill="#e8a3bb"/>
+        <circle r="22" cx="0" cy="20" fill="#eeb3c6"/>
+        <circle r="10" fill="#c96f92"/>
+      </g>
+      <!-- flower 3 -->
+      <g transform="translate(245,185)">
+        <circle r="20" fill="#f6d3de"/>
+        <circle r="20" cx="17" cy="-8" fill="#eeb3c6"/>
+        <circle r="20" cx="-17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="17" cy="8" fill="#e8a3bb"/>
+        <circle r="20" cx="-17" cy="8" fill="#f2c2d1"/>
+        <circle r="9" fill="#d8a3b8"/>
+      </g>
+      <!-- flower 4 small left -->
+      <g transform="translate(130,208) scale(0.75)">
+        <circle r="20" fill="#f8dbe4"/>
+        <circle r="20" cx="17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="-17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="0" cy="16" fill="#eeb3c6"/>
+        <circle r="9" fill="#d8a3b8"/>
+      </g>
+      <!-- flower 5 small right -->
+      <g transform="translate(275,213) scale(0.75)">
+        <circle r="20" fill="#f8dbe4"/>
+        <circle r="20" cx="-17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="17" cy="-8" fill="#f2c2d1"/>
+        <circle r="20" cx="0" cy="16" fill="#eeb3c6"/>
+        <circle r="9" fill="#d8a3b8"/>
+      </g>
+
+      <!-- ribbon -->
+      <path d="M170 285 Q200 305 230 285 L225 300 Q200 315 175 300 Z" fill="#d8a3b8"/>
+    </svg>
+  </div>
+  <h1 class="editable">1 maand samen</h1>
+  <p class="sub editable">Ik wou graag iets voor je doen, helaas ging een cadeautje wat lastig. Maar scroll naar beneden voor een verrassing</p>
+  <div class="scroll-hint">↓ scroll ↓</div>
+</section>
+
+<!-- ================= LETTER ================= -->
+<section>
+  <div class="letter">
+    <h2 class="editable">Hey lieverd,</h2>
+    <p class="editable">Een maand geleden kregen we officieel een relatie. Het voelt soms gek dat zoiets kleins als een maand een relatie hebben nu al zo groot voelt, ben echt ontzettend gelukkig met je en voel me zo fijn bij je. Ondanks de afstand, ondanks Noorwegen, voelt het gewoon zo goed met je en heb ik nooit getwijfeld aan ons!</p>
+    <p class="editable">Ik wilde je echt iets sturen om te vieren dat we een maand samen zijn, maar aangezien ik niet 100% zeker wist of een bloemetje zou aankomen, dacht ik dan maak ik een website waar je een leuk bloemetje in elkaar kan zetten. Pastelroze vond ik de best passende kleur, hoop dat je de hele website mooit vindt!</p>
+    <p class="editable">Ik ben echt zo blij door je, heb echt nu al zo'n amazing tijd met je gehad. Ik ben zo dankbaar dat je lief bent, humor hebt, voor me zorgt als het nodig is, dezelfde dingen leuk vind als ik maar me ook weer zo aanvult. Kan niet wachten weer met je te zijn, je bent echt alles waar ik ooit over gedroomd heb 🫶🏻</p>
+    <p class="sign editable">— Voor altijd jouw lieverd 🌸</p>
+  </div>
+</section>
+
+<!-- ================= LIVE COUNTER ================= -->
+<section>
+  <div class="section-title">
+    <div class="divider"><div class="line"></div>⏳<div class="line"></div></div>
+    <h2 class="editable">Samen sinds</h2>
+    <p class="editable">De teller staat aan sinds het moment dat we een relatie hebben. Kan niet wachten tot hier een jaar staat.</p>
+  </div>
+  <div class="counter-card" id="liveCounter">
+    <div class="counter-unit"><div class="num" id="cYears">0</div><div class="label">jaren</div></div>
+    <div class="counter-unit"><div class="num" id="cDays">0</div><div class="label">dagen</div></div>
+    <div class="counter-unit"><div class="num" id="cHours">0</div><div class="label">uren</div></div>
+    <div class="counter-unit"><div class="num" id="cMins">0</div><div class="label">minuten</div></div>
+    <div class="counter-unit"><div class="num" id="cSecs">0</div><div class="label">seconden</div></div>
+  </div>
+</section>
+
+<!-- ================= BOUQUET BUILDER ================= -->
+<section>
+  <div class="section-title">
+    <div class="divider">
+      <div class="line"></div>
+      <svg class="divider-orchid" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(30,30)">
+          <ellipse cx="0" cy="-16" rx="8" ry="13" fill="#f2c2d1"/>
+          <ellipse cx="-14" cy="-3" rx="7" ry="12" fill="#f6d3de" transform="rotate(-35 -14 -3)"/>
+          <ellipse cx="14" cy="-3" rx="7" ry="12" fill="#f6d3de" transform="rotate(35 14 -3)"/>
+          <ellipse cx="-11" cy="11" rx="6" ry="10" fill="#eeb3c6" transform="rotate(-65 -11 11)"/>
+          <ellipse cx="11" cy="11" rx="6" ry="10" fill="#eeb3c6" transform="rotate(65 11 11)"/>
+          <path d="M0 2 Q-9 8 -6 18 Q0 24 6 18 Q9 8 0 2Z" fill="#c96f92"/>
+          <circle cx="0" cy="4" r="3.2" fill="#d8b48a"/>
+        </g>
+      </svg>
+      <div class="line"></div>
+    </div>
+    <!-- PAS DE TITEL EN TEKST HIERONDER GERUST AAN NAAR IETS PERSOONLIJKS -->
+    <h2 class="editable">Stel jouw boeketje samen</h2>
+    <p class="editable">Maak hier je eigen mooie boeketje. Ik heb speciaal voor jou allemaal roze bloemen gepakt</p>
+  </div>
+
+  <div class="builder-wrap">
+    <div class="builder-display">
+      <svg id="bouquetSvg" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="vaseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#f6d3de"/>
+          </linearGradient>
+        </defs>
+        <g id="stemsGroup"></g>
+        <g id="flowersGroup"></g>
+        <!-- vase -->
+        <ellipse cx="200" cy="300" rx="42" ry="9" fill="#f2c2d1" opacity="0.7"/>
+        <path d="M162 298 L168 336 Q170 352 200 352 Q230 352 232 336 L238 298 Z" fill="url(#vaseGrad)" stroke="#e8a3bb" stroke-width="2"/>
+        <ellipse cx="200" cy="298" rx="38" ry="7" fill="#ffffff" stroke="#e8a3bb" stroke-width="1.5"/>
+      </svg>
+      <div class="builder-empty" id="builderEmpty">Klik op een bloem om er 1 toe te voegen 🌸</div>
+    </div>
+
+    <div class="picker">
+      <button class="flower-chip" data-type="peony" title="Pioenroos toevoegen">
+        <svg viewBox="0 0 40 40"><g transform="translate(20,20)"><circle r="12" fill="#f6d3de"/><circle r="12" cx="10" cy="-5" fill="#f2c2d1"/><circle r="12" cx="-10" cy="-5" fill="#f2c2d1"/><circle r="12" cx="10" cy="5" fill="#e8a3bb"/><circle r="12" cx="-10" cy="5" fill="#e8a3bb"/><circle r="5" fill="#c96f92"/></g></svg>
+        <span>Pioenroos</span>
+      </button>
+      <button class="flower-chip" data-type="tulip" title="Tulp toevoegen">
+        <svg viewBox="0 0 40 40">
+          <path d="M20 34 L20 20" stroke="#9fb98a" stroke-width="2"/>
+          <path d="M20 20 Q8 20 8 8 Q8 -2 20 2 Q32 -2 32 8 Q32 20 20 20" fill="#eeb3c6"/>
+          <path d="M20 4 Q11 4 11 12 Q20 17 20 4" fill="#f6d3de"/>
+        </svg>
+        <span>Tulp</span>
+      </button>
+      <button class="flower-chip" data-type="hyacinth" title="Hyacint toevoegen">
+        <svg viewBox="0 0 40 40"><g transform="translate(20,20)">
+          <circle r="5.5" cy="-13" fill="#f2c2d1"/><circle r="5.5" cy="-4.5" fill="#f6d3de"/><circle r="5.5" cy="4" fill="#eeb3c6"/><circle r="5.5" cy="12.5" fill="#e8a3bb"/>
+        </g></svg>
+        <span>Hyacint</span>
+      </button>
+      <button class="flower-chip" data-type="ranunculus" title="Ranonkel toevoegen">
+        <svg viewBox="0 0 40 40"><g transform="translate(20,20)">
+          <circle r="12" fill="#f8dbe4"/><circle r="12" cx="10.5" cy="-4.5" fill="#f2c2d1"/><circle r="12" cx="-10.5" cy="-4.5" fill="#f2c2d1"/><circle r="12" cx="10.5" cy="4.5" fill="#eeb3c6"/><circle r="12" cx="-10.5" cy="4.5" fill="#eeb3c6"/><circle r="12" cy="10.5" fill="#e8a3bb"/><circle r="12" cy="-10.5" fill="#e8a3bb"/><circle r="4.5" fill="#d8a3b8"/>
+        </g></svg>
+        <span>Ranonkel</span>
+      </button>
+      <button class="flower-chip" data-type="orchid" title="Orchidee toevoegen">
+        <svg viewBox="0 0 40 40"><g transform="translate(20,21)">
+          <ellipse cx="0" cy="-10.5" rx="5.3" ry="8.7" fill="#f2c2d1"/>
+          <ellipse cx="-9.3" cy="-2" rx="4.7" ry="8" fill="#f6d3de" transform="rotate(-35 -9.3 -2)"/>
+          <ellipse cx="9.3" cy="-2" rx="4.7" ry="8" fill="#f6d3de" transform="rotate(35 9.3 -2)"/>
+          <ellipse cx="-7.3" cy="7.3" rx="4" ry="6.7" fill="#eeb3c6" transform="rotate(-65 -7.3 7.3)"/>
+          <ellipse cx="7.3" cy="7.3" rx="4" ry="6.7" fill="#eeb3c6" transform="rotate(65 7.3 7.3)"/>
+          <path d="M0 1.3 Q-6 5.3 -4 12 Q0 16 4 12 Q6 5.3 0 1.3Z" fill="#c96f92"/>
+          <circle cx="0" cy="2.7" r="2.1" fill="#d8b48a"/>
+        </g></svg>
+        <span>Orchidee</span>
+      </button>
+      <button class="clear-btn" id="clearBouquet">Boeket wissen ↺</button>
+    </div>
+    <div class="builder-count" id="builderCount">0 van 8 bloemen</div>
+  </div>
+</section>
+
+<!-- ================= DISTANCE ================= -->
+<section>
+  <div class="section-title">
+    <div class="divider"><div class="line"></div>✈️<div class="line"></div></div>
+    <h2 class="editable">Tot oktober lieverd</h2>
+  </div>
+  <div class="distance-wrap">
+    <svg class="distance-svg" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+      <path id="distPath" d="M90 160 Q250 40 410 90" stroke="#e8a3bb" stroke-width="2.5" fill="none" stroke-dasharray="6 8"/>
+      <g transform="translate(90,160)">
+        <circle r="8" fill="#c96f92"/>
+        <text x="0" y="34" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" fill="#5b3b4c">Nederland</text>
+        <text x="0" y="-16" text-anchor="middle" font-size="20">📍</text>
+      </g>
+      <g transform="translate(410,90)">
+        <circle r="8" fill="#c96f92"/>
+        <text x="0" y="34" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" fill="#5b3b4c">Noorwegen</text>
+        <text x="0" y="-16" text-anchor="middle" font-size="20">📍</text>
+      </g>
+      <g id="planeMarker">
+        <text x="0" y="0" text-anchor="middle" font-size="22" transform="rotate(-25)">✈️</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ================= SCRATCH TICKET ================= -->
+<section>
+  <div class="section-title">
+    <div class="divider"><div class="line"></div>🎟️<div class="line"></div></div>
+    <h2 class="editable">Nog een verrassing</h2>
+    <p class="editable">Kras het vakje open om te zien wat je hebt gewonnen.</p>
+  </div>
+  <div class="scratch-wrap">
+    <div class="scratch-card">
+      <div class="scratch-prize">
+        <div class="prize-title editable">Coupon voor een gratis boeketje 🌸</div>
+      </div>
+      <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+    </div>
+    <div class="scratch-hint" id="scratchHint">Sleep met je muis of vinger over het vakje</div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="heart">🌸</div>
+  <h2 class="editable">Op nog heel veel maanden verder met elkaar!</h2>
+  <p class="editable">Ik ben zo ontzettend gelukkig met je en wil echt weer graag samen zijn. Tot die tijd houden we ons leuke contact aan. Houd van jou lieverd 🫶🏻</p>
+</footer>
+
+<script>
+  // gentle floating petals
+  const field = document.getElementById('petalField');
+  const total = 18;
+  for(let i=0;i<total;i++){
+    const p = document.createElement('div');
+    p.className='petal';
+    const left = Math.random()*100;
+    const duration = 9 + Math.random()*10;
+    const delay = Math.random()*10;
+    const size = 8 + Math.random()*10;
+    p.style.left = left+'vw';
+    p.style.width = size+'px';
+    p.style.height = size+'px';
+    p.style.animationDuration = duration+'s';
+    p.style.animationDelay = -delay+'s';
+    p.style.background = Math.random() > .5 ? '#f2c2d1' : '#e8a3bb';
+    field.appendChild(p);
+  }
+
+  // ---------------- bouquet builder ----------------
+  const MAX_FLOWERS = 8;
+  const anchors = [
+    {x:200, y:150, s:1.15},
+    {x:163, y:182, s:1.0},
+    {x:237, y:182, s:1.0},
+    {x:133, y:206, s:0.85},
+    {x:267, y:206, s:0.85},
+    {x:112, y:168, s:0.72},
+    {x:288, y:168, s:0.72},
+    {x:200, y:112, s:0.85}
+  ];
+  const vaseBase = {x:200, y:296};
+  let bouquet = [];
+
+  const flowerDefs = {
+    peony: (s)=>`<g>
+        <circle r="${18*s}" fill="#f6d3de"/>
+        <circle r="${18*s}" cx="${15*s}" cy="${-8*s}" fill="#f2c2d1"/>
+        <circle r="${18*s}" cx="${-15*s}" cy="${-8*s}" fill="#f2c2d1"/>
+        <circle r="${18*s}" cx="${15*s}" cy="${8*s}" fill="#e8a3bb"/>
+        <circle r="${18*s}" cx="${-15*s}" cy="${8*s}" fill="#e8a3bb"/>
+        <circle r="${8*s}" fill="#c96f92"/>
+      </g>`,
+    tulip: (s)=>`<g>
+        <path d="M0 ${18*s} Q${-14*s} ${18*s} ${-14*s} ${0} Q${-14*s} ${-16*s} 0 ${-10*s} Q${14*s} ${-16*s} ${14*s} ${0} Q${14*s} ${18*s} 0 ${18*s}" fill="#eeb3c6"/>
+        <path d="M0 ${-8*s} Q${-9*s} ${-8*s} ${-9*s} ${2*s} Q0 ${8*s} 0 ${-8*s}" fill="#f6d3de"/>
+      </g>`,
+    hyacinth: (s)=>`<g>
+        <circle r="${7*s}" cy="${-18*s}" fill="#f2c2d1"/>
+        <circle r="${7*s}" cy="${-6*s}" fill="#f6d3de"/>
+        <circle r="${7*s}" cy="${6*s}" fill="#eeb3c6"/>
+        <circle r="${7*s}" cy="${18*s}" fill="#e8a3bb"/>
+      </g>`,
+    ranunculus: (s)=>`<g>
+        <circle r="${18*s}" fill="#f8dbe4"/>
+        <circle r="${18*s}" cx="${16*s}" cy="${-7*s}" fill="#f2c2d1"/>
+        <circle r="${18*s}" cx="${-16*s}" cy="${-7*s}" fill="#f2c2d1"/>
+        <circle r="${18*s}" cx="${16*s}" cy="${7*s}" fill="#eeb3c6"/>
+        <circle r="${18*s}" cx="${-16*s}" cy="${7*s}" fill="#eeb3c6"/>
+        <circle r="${18*s}" cy="${16*s}" fill="#e8a3bb"/>
+        <circle r="${18*s}" cy="${-16*s}" fill="#e8a3bb"/>
+        <circle r="${7*s}" fill="#d8a3b8"/>
+      </g>`,
+    orchid: (s)=>`<g>
+        <ellipse cx="0" cy="${-16*s}" rx="${8*s}" ry="${13*s}" fill="#f2c2d1"/>
+        <ellipse cx="${-14*s}" cy="${-3*s}" rx="${7*s}" ry="${12*s}" fill="#f6d3de" transform="rotate(-35 ${-14*s} ${-3*s})"/>
+        <ellipse cx="${14*s}" cy="${-3*s}" rx="${7*s}" ry="${12*s}" fill="#f6d3de" transform="rotate(35 ${14*s} ${-3*s})"/>
+        <ellipse cx="${-11*s}" cy="${11*s}" rx="${6*s}" ry="${10*s}" fill="#eeb3c6" transform="rotate(-65 ${-11*s} ${11*s})"/>
+        <ellipse cx="${11*s}" cy="${11*s}" rx="${6*s}" ry="${10*s}" fill="#eeb3c6" transform="rotate(65 ${11*s} ${11*s})"/>
+        <path d="M0 ${2*s} Q${-9*s} ${8*s} ${-6*s} ${18*s} Q0 ${24*s} ${6*s} ${18*s} Q${9*s} ${8*s} 0 ${2*s}Z" fill="#c96f92"/>
+        <circle cx="0" cy="${4*s}" r="${3.2*s}" fill="#d8b48a"/>
+      </g>`
+  };
+
+  const stemsGroup = document.getElementById('stemsGroup');
+  const flowersGroup = document.getElementById('flowersGroup');
+  const builderEmpty = document.getElementById('builderEmpty');
+  const builderCount = document.getElementById('builderCount');
+
+  function renderBouquet(){
+    if(!stemsGroup || !flowersGroup) return;
+    stemsGroup.innerHTML = '';
+    flowersGroup.innerHTML = '';
+
+    bouquet.forEach((type, i)=>{
+      const a = anchors[i];
+      const midX = (vaseBase.x + a.x)/2 + (i%2===0 ? -10 : 10);
+      const midY = (vaseBase.y + a.y)/2;
+
+      const stem = document.createElementNS('http://www.w3.org/2000/svg','path');
+      stem.setAttribute('d', `M${vaseBase.x} ${vaseBase.y} Q${midX} ${midY} ${a.x} ${a.y}`);
+      stem.setAttribute('stroke', '#9fb98a');
+      stem.setAttribute('stroke-width', '3');
+      stem.setAttribute('fill', 'none');
+      stemsGroup.appendChild(stem);
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('transform', `translate(${a.x},${a.y})`);
+      g.innerHTML = flowerDefs[type](a.s);
+      g.style.opacity = '0';
+      g.style.transformOrigin = 'center';
+      g.style.transition = 'opacity .5s ease, transform .5s ease';
+      flowersGroup.appendChild(g);
+      requestAnimationFrame(()=>{ g.style.opacity = '1'; });
+    });
+
+    if(builderEmpty) builderEmpty.classList.toggle('hidden', bouquet.length > 0);
+    if(builderCount) builderCount.textContent = `${bouquet.length} van ${MAX_FLOWERS} bloemen`;
+  }
+
+  document.querySelectorAll('.flower-chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const type = btn.getAttribute('data-type');
+      bouquet.push(type);
+      if(bouquet.length > MAX_FLOWERS){ bouquet.shift(); }
+      renderBouquet();
+    });
+  });
+
+  document.getElementById('clearBouquet')?.addEventListener('click', ()=>{
+    bouquet = [];
+    renderBouquet();
+  });
+
+  renderBouquet();
+
+  // ---------------- live counter ----------------
+  const startDate = new Date('2026-07-30T16:36:00');
+
+  function updateCounter(){
+    const now = new Date();
+
+    let years = now.getFullYear() - startDate.getFullYear();
+    let anniversary = new Date(startDate);
+    anniversary.setFullYear(startDate.getFullYear() + years);
+    if(anniversary > now){
+      years--;
+      anniversary = new Date(startDate);
+      anniversary.setFullYear(startDate.getFullYear() + years);
+    }
+    years = Math.max(0, years);
+
+    let diff = Math.max(0, now - anniversary);
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const elYears = document.getElementById('cYears');
+    const elDays = document.getElementById('cDays');
+    const elHours = document.getElementById('cHours');
+    const elMins = document.getElementById('cMins');
+    const elSecs = document.getElementById('cSecs');
+    if(elYears) elYears.textContent = years;
+    if(elDays) elDays.textContent = days;
+    if(elHours) elHours.textContent = String(hours).padStart(2,'0');
+    if(elMins) elMins.textContent = String(mins).padStart(2,'0');
+    if(elSecs) elSecs.textContent = String(secs).padStart(2,'0');
+  }
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+  // ---------------- flying plane along the distance path ----------------
+  const distPath = document.getElementById('distPath');
+  const planeMarker = document.getElementById('planeMarker');
+  if(distPath && planeMarker){
+    const pathLength = distPath.getTotalLength();
+    let planeProgress = 0;
+    function animatePlane(){
+      planeProgress += 0.0025;
+      if(planeProgress > 1) planeProgress = 0;
+      const pt = distPath.getPointAtLength(pathLength * planeProgress);
+      planeMarker.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+      requestAnimationFrame(animatePlane);
+    }
+    animatePlane();
+  }
+
+  // ---------------- scratch ticket ----------------
+  const scratchCanvas = document.getElementById('scratchCanvas');
+  if(scratchCanvas){
+    const ctx = scratchCanvas.getContext('2d');
+    const scratchCard = scratchCanvas.closest('.scratch-card');
+    let isDrawing = false;
+    let revealed = false;
+
+    function sizeCanvas(){
+      const rect = scratchCard.getBoundingClientRect();
+      scratchCanvas.width = rect.width;
+      scratchCanvas.height = rect.height;
+      drawCoating();
+    }
+
+    function drawCoating(){
+      const w = scratchCanvas.width, h = scratchCanvas.height;
+      const grad = ctx.createLinearGradient(0,0,w,h);
+      grad.addColorStop(0, '#c9b8bd');
+      grad.addColorStop(1, '#a98d95');
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,w,h);
+      ctx.fillStyle = 'rgba(255,255,255,.85)';
+      ctx.font = `${Math.max(14, w*0.09)}px 'Cormorant Garamond', serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('kras hier', w/2, h/2);
+    }
+
+    function scratchAt(x, y){
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, Math.max(18, scratchCanvas.width*0.06), 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    function getPos(e){
+      const rect = scratchCanvas.getBoundingClientRect();
+      const point = e.touches ? e.touches[0] : e;
+      return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+    }
+
+    function checkRevealed(){
+      if(revealed) return;
+      const w = scratchCanvas.width, h = scratchCanvas.height;
+      const sampleStep = 10;
+      let cleared = 0, total = 0;
+      const data = ctx.getImageData(0,0,w,h).data;
+      for(let py=0; py<h; py+=sampleStep){
+        for(let px=0; px<w; px+=sampleStep){
+          total++;
+          const alpha = data[((py*w)+px)*4 + 3];
+          if(alpha < 40) cleared++;
+        }
+      }
+      if(total > 0 && cleared/total > 0.55){
+        revealed = true;
+        scratchCanvas.style.transition = 'opacity .6s ease';
+        scratchCanvas.style.opacity = '0';
+      }
+    }
+
+    function startDraw(e){ isDrawing = true; const p = getPos(e); scratchAt(p.x, p.y); e.preventDefault(); }
+    function moveDraw(e){ if(!isDrawing) return; const p = getPos(e); scratchAt(p.x, p.y); checkRevealed(); e.preventDefault(); }
+    function endDraw(){ isDrawing = false; checkRevealed(); }
+
+    scratchCanvas.addEventListener('mousedown', startDraw);
+    scratchCanvas.addEventListener('mousemove', moveDraw);
+    window.addEventListener('mouseup', endDraw);
+    scratchCanvas.addEventListener('touchstart', startDraw, {passive:false});
+    scratchCanvas.addEventListener('touchmove', moveDraw, {passive:false});
+    scratchCanvas.addEventListener('touchend', endDraw);
+
+    window.addEventListener('resize', sizeCanvas);
+    sizeCanvas();
+  }
+</script>
+
+</body>
+</html>
